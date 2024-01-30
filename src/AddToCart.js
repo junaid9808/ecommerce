@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
 import Products from "./pages/Products";
 import { productById } from "./apiHits/products/productByCategories/productById";
@@ -6,8 +6,10 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { CartContext } from "./components/contextApi/Provider";
 
 function AddToCart() {
+  const { setCount } = useContext(CartContext); // ContextApi
   const [incDEc, setIncDec] = useState(1);
   const [data, setData] = useState([]);
   const param = useParams();
@@ -18,6 +20,7 @@ function AddToCart() {
         let dataList = await productById(param.id);
         console.log("add cart", dataList);
         dataList.newIncDEc = incDEc; // adding new object in exicting object
+        dataList.counts = "counts";
         console.log("new data", dataList);
         setData(dataList);
       }
@@ -36,7 +39,6 @@ function AddToCart() {
     }
   };
   const handleClick = () => {
-    const add = data.price * incDEc;
     let preData = JSON.parse(localStorage.getItem("newData")) || [];
     const checkData = preData.findIndex((item) => item.id === data.id);
     if (checkData !== -1) {
@@ -44,8 +46,9 @@ function AddToCart() {
     } else {
       preData = [...preData, data];
       localStorage.setItem("newData", JSON.stringify(preData));
+      setCount((pre) => pre + 1);
+
       navigate(`/cart`);
-      console.log("price", add);
     }
   };
 

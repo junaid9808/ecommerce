@@ -1,10 +1,13 @@
 ("use client");
-import React from "react";
+import React, { useContext } from "react";
 
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
+import { CartContext } from "../contextApi/Provider";
 
 export default function NavbarMenu({ loggedIn, handleLogout }) {
+  const { count } = useContext(CartContext);
+
   return (
     <div className="bg-white text-black h-20 flex mx-4 rounded-md  mt-3">
       <div className="my-2">
@@ -78,8 +81,17 @@ export default function NavbarMenu({ loggedIn, handleLogout }) {
             )}
             <li>
               <Link to="/cart">
-                <div className="ml-6">
-                  <Icon icon="bytesize:cart" />
+                <div className="ml-6 flex flex-row">
+                  <div className="mt-2">
+                    <Icon
+                      className="text-blue-500 text-2xl"
+                      icon="bytesize:cart"
+                    />
+                  </div>
+
+                  <div className="">
+                    <span className="text-red-400">{count}</span>
+                  </div>
                 </div>
               </Link>
             </li>

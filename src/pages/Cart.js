@@ -1,18 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
+import { CartContext } from "../components/contextApi/Provider";
 
 export default function Cart() {
   const [data, setData] = useState([]);
   const [sum, setSum] = useState(0);
   const navigate = useNavigate();
+  const { setCount } = useContext(CartContext);
 
   useEffect(() => {
     fetchData();
   }, []);
   const fetchData = () => {
     let getData = JSON.parse(localStorage.getItem("newData"));
-    let data = getData.reduce((acc, item) => {
+    let data = getData?.reduce((acc, item) => {
       return acc + item.price * item.newIncDEc;
     }, 0);
     setData(getData);
@@ -22,6 +24,7 @@ export default function Cart() {
   const deleteItem = (id) => {
     const upDateData = data.filter((itemId) => itemId.id !== id);
     setData(upDateData);
+    setCount((preData) => preData - 1);
     console.log("updated data", upDateData);
     localStorage.setItem("newData", JSON.stringify(upDateData));
   };
@@ -49,7 +52,7 @@ export default function Cart() {
     localStorage.removeItem("newData");
     setSum(0);
     setData([]);
-    console.log("dghsjsdfhG");
+    setCount(0);
     navigate("/");
   };
 
