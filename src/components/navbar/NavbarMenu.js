@@ -9,7 +9,7 @@ export default function NavbarMenu({ loggedIn, handleLogout }) {
   const { count } = useContext(CartContext);
 
   return (
-    <div className="bg-white text-black h-20 flex mx-4 rounded-md  mt-3">
+    <div className="bg-white text-black h-20 flex mx-4 rounded-md ">
       <div className="my-2">
         <ul className="flex">
           <div className="pl-12 my-1 ">
