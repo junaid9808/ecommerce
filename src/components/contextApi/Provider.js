@@ -7,7 +7,7 @@ const Provider = ({ children }) => {
     async function fetchData() {
       let getData = JSON.parse(localStorage.getItem("newData"));
       let totalCount = getData?.length;
-      setCount(totalCount);
+      setCount(totalCount ? totalCount : 0);
     }
     fetchData();
   }, []);

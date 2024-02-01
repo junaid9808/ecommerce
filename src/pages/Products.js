@@ -37,7 +37,7 @@ export default function Products() {
 
   return (
     <>
-      <div className="mx-4">
+      <div className="mx-4 mt-28 ">
         <div className="bg-blue-200  rounded-md flex flex-row justify-center">
           {categories?.map((item, index) => (
             <div
@@ -63,7 +63,7 @@ export default function Products() {
           {data?.map((item, index) => (
             <div
               key={index}
-              className="p-2 my-4 bg-white hover:bg-gray-50"
+              className="p-2 my-4 bg-white hover:bg-gray-50 flex justify-center items-center flex-col"
               style={{
                 border: index === hoveredIndex ? "2px solid #007BFF" : "none",
               }}
@@ -78,7 +78,7 @@ export default function Products() {
                 }}
               >
                 <img
-                  style={{ width: 250, height: 250 }}
+                  style={{ width: 150, height: 200 }}
                   src={item.image}
                   alt="imh"
                 ></img>

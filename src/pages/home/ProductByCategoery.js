@@ -64,7 +64,10 @@ function ProductByCategoery({ selecter }) {
                   <div key={index}>
                     <div className="flex flex-col   bg-transparent  p-2 group border-indigo-500 hover:bg-white hover:shadow-lg">
                       <div className="  h-28 flex justify-center items-center">
-                        <img width={100} height={300} src={item.image}></img>
+                        <img
+                          style={{ width: 150, height: 125 }}
+                          src={item.image}
+                        ></img>
                       </div>
                       <div className="mt-20 h-52">
                         <div className="my-2 mx-4">
@@ -130,7 +133,10 @@ function ProductByCategoery({ selecter }) {
                   <div key={index}>
                     <div className="flex flex-col   bg-transparent  p-2 group border-indigo-500 hover:bg-white hover:shadow-lg">
                       <div className="  h-28 flex justify-center items-center">
-                        <img width={100} height={300} src={item.image}></img>
+                        <img
+                          style={{ width: 150, height: 125 }}
+                          src={item.image}
+                        ></img>
                       </div>
                       <div className="mt-20 h-52">
                         <div className="my-2 mx-4">
@@ -198,7 +204,10 @@ function ProductByCategoery({ selecter }) {
                   <div key={index}>
                     <div className="flex flex-col   bg-transparent  p-2 group border-indigo-500 hover:bg-white hover:shadow-lg">
                       <div className="  h-28 flex justify-center items-center">
-                        <img width={100} height={300} src={item.image}></img>
+                        <img
+                          style={{ width: 150, height: 125 }}
+                          src={item.image}
+                        ></img>
                       </div>
                       <div className="mt-20 h-52">
                         <div className="my-2 mx-4">
@@ -264,7 +273,10 @@ function ProductByCategoery({ selecter }) {
                   <div key={index}>
                     <div className="flex flex-col   bg-transparent  p-2 group border-indigo-500 hover:bg-white hover:shadow-lg">
                       <div className="  h-28 flex justify-center items-center">
-                        <img width={100} height={300} src={item.image}></img>
+                        <img
+                          style={{ width: 150, height: 125 }}
+                          src={item.image}
+                        ></img>
                       </div>
                       <div className="mt-20 h-52">
                         <div className="my-2 mx-4">

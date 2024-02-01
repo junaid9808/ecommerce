@@ -22,7 +22,7 @@ export default function LoginPage({ setLoggedIn }) {
   };
   return (
     <>
-      <div className="mt-16  flex justify-center items-center flex-col bg-blue-400 w-96 p-2 rounded-md m-auto">
+      <div className="mt-28  flex justify-center items-center flex-col bg-blue-400 w-96 p-2 rounded-md m-auto">
         <h1 className="text-2xl text-white">Please Login</h1>
         <form onSubmit={handleSubmit}>
           <div className="mt-4">

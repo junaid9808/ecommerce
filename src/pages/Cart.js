@@ -6,12 +6,14 @@ import { CartContext } from "../components/contextApi/Provider";
 export default function Cart() {
   const [data, setData] = useState([]);
   const [sum, setSum] = useState(0);
+  const [quantity, setQuantity] = useState();
   const navigate = useNavigate();
-  const { setCount } = useContext(CartContext);
+  const { count, setCount } = useContext(CartContext);
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [quantity, count]);
+
   const fetchData = () => {
     let getData = JSON.parse(localStorage.getItem("newData"));
     let data = getData?.reduce((acc, item) => {
@@ -35,16 +37,20 @@ export default function Cart() {
     fetchData();
     const uddated = [...data];
     uddated[index].newIncDEc += 1;
-    setData(uddated);
+
     localStorage.setItem("newData", JSON.stringify(uddated));
+    setData(uddated);
+    setQuantity(uddated);
   };
   const handleMinus = (index) => {
     fetchData();
     const preData = [...data];
     if (preData[index].newIncDEc > 1) {
       preData[index].newIncDEc -= 1;
-      setData(preData);
+
       localStorage.setItem("newData", JSON.stringify(preData));
+      setData(preData);
+      setQuantity(preData);
     }
   };
 
@@ -52,25 +58,26 @@ export default function Cart() {
     localStorage.removeItem("newData");
     setSum(0);
     setData([]);
-    setCount(0);
+    setCount();
     navigate("/");
   };
 
   return (
     <>
-      <div className="mt-10 mx-8">
+      <div className="mt-28 mx-8">
         <div className="grid grid-cols-3 gap-1  ">
-          <div className=" col-span-2 p-2  ">
+          <div className=" col-span-2     ">
             {data?.map((item, index) => (
-              <div key={index} className="flex flex-row bg-blue-50 ">
-                <img
-                  className="border-2 p-1"
-                  style={{ widows: 150, height: 150 }}
-                  src={item.image}
-                  alt="img"
-                ></img>
+              <div key={index} className="flex   pb-1 ">
+                <div className=" p-1 ">
+                  <img
+                    style={{ width: 150, height: 150 }}
+                    src={item.image}
+                    alt="img"
+                  ></img>
+                </div>
                 <div className="ml-2 mt-12">
-                  <h3 className="text-2xl">{item.title}</h3>
+                  <h3 className="text-lg">{item.title}</h3>
                   <div
                     className="flex flex-row items-center mt-2 "
                     onClick={() => deleteItem(item.id)}
@@ -81,7 +88,7 @@ export default function Cart() {
                 </div>
                 <div className=" flex ml-auto items-center justify-center mr-10 flex-col">
                   <h1 className="text-red-500 mb-2">
-                    RS. {item.price * item.newIncDEc}/-
+                    RS. {(item.price * item.newIncDEc)?.toFixed(2)}/-
                   </h1>
                   <div className="flex justify-center items-start  ">
                     <Icon
@@ -104,13 +111,13 @@ export default function Cart() {
             ))}
           </div>
 
-          <div className="p-3 ">
-            <h1 className="bg-blue-50 ">Price Detail</h1>
-            <hr class="w-full h-1  bg-gray-200 border-0 rounded dark:bg-gray-700" />
-            <div className="bg-blue-50">
+          <div className="">
+            <h1 className="bg-blue-50 p-4 ">Price Detail</h1>
+            <hr class="w-full h-1   bg-gray-200 border-0 rounded dark:bg-gray-700" />
+            <div className="bg-blue-50 p-4">
               <div className="flex flex-row">
                 <h1>subtotal</h1>
-                <h1 className="ml-auto">RS. {sum}</h1>
+                <h1 className="ml-auto">RS. {sum?.toFixed(2)}</h1>
               </div>
               <div className="flex flex-row mt-8">
                 <h1>Delivery Charges</h1>
@@ -119,7 +126,7 @@ export default function Cart() {
               <hr class="w-full h-1 mt-2  bg-gray-200 border-0 rounded dark:bg-gray-700" />
               <div className="flex flex-row mt-4">
                 <h1>Amount Payable</h1>
-                <h1 className="ml-auto">RS. {sum}</h1>
+                <h1 className="ml-auto">RS. {sum?.toFixed(2)}</h1>
               </div>
             </div>
           </div>

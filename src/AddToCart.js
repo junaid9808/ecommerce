@@ -9,7 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { CartContext } from "./components/contextApi/Provider";
 
 function AddToCart() {
-  const { setCount } = useContext(CartContext); // ContextApi
+  const { count, setCount } = useContext(CartContext); // ContextApi
   const [incDEc, setIncDec] = useState(1);
   const [data, setData] = useState([]);
   const param = useParams();
@@ -20,7 +20,7 @@ function AddToCart() {
         let dataList = await productById(param.id);
         console.log("add cart", dataList);
         dataList.newIncDEc = incDEc; // adding new object in exicting object
-        dataList.counts = "counts";
+        dataList.counts = count;
         console.log("new data", dataList);
         setData(dataList);
       }
@@ -54,9 +54,9 @@ function AddToCart() {
 
   return (
     <>
-      <div className="grid grid-cols-2 mx-8 my-16">
+      <div className="grid grid-cols-2 mx-8 mt-36">
         <div className="flex justify-center items-end flex-col mr-4 ">
-          <div className="border-2 p-4">
+          <div className="border-2 p-4 border-blue-100">
             <img style={{ width: 300, height: 300 }} src={data?.image}></img>
           </div>
           <div className="m-8 ">
@@ -69,7 +69,7 @@ function AddToCart() {
           </div>
         </div>
         <div className="flex flex-col  bg-slate-50 p-4 mb-7">
-          <h1 className="text-2xl ">{data?.title}</h1>
+          <h1 className="text-xl ">{data?.title}</h1>
           <div className="mt-4">
             <h1>
               rating: {data?.rating?.rate} ({data?.rating?.count})
@@ -84,11 +84,6 @@ function AddToCart() {
               <Icon icon="fluent-emoji-flat:plus" onClick={handleInc} />
             </div>
           </div>
-        </div>
-        <div>
-          <button onClick={handleClick} className="p-2 bg-blue-200">
-            click
-          </button>
         </div>
       </div>
     </>
