@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { CartContext } from "./components/contextApi/Provider";
+import Footer from "./pages/footer/Footer";
 
 function AddToCart() {
   const { count, setCount } = useContext(CartContext); // ContextApi
@@ -54,36 +55,41 @@ function AddToCart() {
 
   return (
     <>
-      <div className="grid grid-cols-2 mx-8 mt-36">
-        <div className="flex justify-center items-end flex-col mr-4 ">
-          <div className="border-2 p-4 border-blue-100">
-            <img style={{ width: 300, height: 300 }} src={data?.image}></img>
-          </div>
-          <div className="m-8 ">
-            <button
-              onClick={handleClick}
-              className="bg-blue-400 p-1 rounded-md hover:bg-blue-200 w-48 h-12"
-            >
-              Add To Cart
-            </button>
-          </div>
-        </div>
-        <div className="flex flex-col  bg-slate-50 p-4 mb-7">
-          <h1 className="text-xl ">{data?.title}</h1>
-          <div className="mt-4">
-            <h1>
-              rating: {data?.rating?.rate} ({data?.rating?.count})
-            </h1>
-            <h1 className="text-2xl mt-2">RS. {data?.price}</h1>
-          </div>
-          <div className="flex flex-row mt-4 ">
-            <h1 className="text-lg">Quantity</h1>
-            <div className="text-lg ml-16 flex flex-row justify-center items-center border-2 p-1 ">
-              <Icon icon="fluent-emoji-flat:minus" onClick={handleDec} />
-              <h1 className="mx-4 text-xl font-mono">{incDEc}</h1>
-              <Icon icon="fluent-emoji-flat:plus" onClick={handleInc} />
+      <div>
+        <div className="grid grid-cols-2 mx-8 mt-36">
+          <div className="flex justify-center items-end flex-col mr-4 ">
+            <div className="border-2 p-4 border-blue-100">
+              <img style={{ width: 300, height: 300 }} src={data?.image}></img>
+            </div>
+            <div className="m-8 ">
+              <button
+                onClick={handleClick}
+                className="bg-blue-400 p-1 rounded-md hover:bg-blue-200 w-48 h-12"
+              >
+                Add To Cart
+              </button>
             </div>
           </div>
+          <div className="flex flex-col  bg-slate-50 p-4 mb-7">
+            <h1 className="text-xl ">{data?.title}</h1>
+            <div className="mt-4">
+              <h1>
+                rating: {data?.rating?.rate} ({data?.rating?.count})
+              </h1>
+              <h1 className="text-2xl mt-2">RS. {data?.price}</h1>
+            </div>
+            <div className="flex flex-row mt-4 ">
+              <h1 className="text-lg">Quantity</h1>
+              <div className="text-lg ml-16 flex flex-row justify-center items-center border-2 p-1 ">
+                <Icon icon="fluent-emoji-flat:minus" onClick={handleDec} />
+                <h1 className="mx-4 text-xl font-mono">{incDEc}</h1>
+                <Icon icon="fluent-emoji-flat:plus" onClick={handleInc} />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="mt-8">
+          <Footer />
         </div>
       </div>
     </>

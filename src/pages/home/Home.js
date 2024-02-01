@@ -6,6 +6,7 @@ import { Icon } from "@iconify/react";
 import ProductByCategoery from "./ProductByCategoery";
 import { GetAllCategories } from "../../apiHits/productCategoryApi/GetAllCategories";
 import { Link, Element, animateScroll as scroll } from "react-scroll";
+import Footer from "../footer/Footer";
 
 export default function Home() {
   const [data, setData] = useState([]);
@@ -137,6 +138,9 @@ export default function Home() {
               payment, we share great pride in providing only the best.
             </span>
           </div>
+        </div>
+        <div className="mt-8">
+          <Footer />
         </div>
       </div>
     </>
