@@ -2,22 +2,26 @@ import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { GetJewelery } from "../../apiHits/products/productByCategories/GetJewelery";
+// import { GetJewelery } from "../../apiHits/products/productByCategories/GetJewelery";
 import { Element } from "react-scroll";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function ProductByCategoery({ selecter }) {
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    async function fetchData() {
-      let dataList = await GetJewelery();
-      console.log("products", dataList);
-      setData(dataList);
-    }
-    fetchData();
-  }, []);
+  const fetchData = useSelector((state) => {
+    return state?.persistedReducer?.products?.data;
+  });
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     let dataList = await GetJewelery();
+  //     console.log("products", dataList);
+  //     setData(dataList);
+  //   }
+  //   fetchData();
+  // }, []);
   const settings = {
     infinite: true,
     speed: 500,
@@ -56,7 +60,7 @@ function ProductByCategoery({ selecter }) {
           </div>
           <div class="col-span-3">
             <Slider {...settings}>
-              {data
+              {fetchData
                 .filter(
                   (categories) => categories.category === "men's clothing"
                 )
@@ -127,7 +131,7 @@ function ProductByCategoery({ selecter }) {
           </div>
           <div class="col-span-3">
             <Slider {...settings}>
-              {data
+              {fetchData
                 .filter((categories) => categories.category === "jewelery")
                 ?.map((item, index) => (
                   <div key={index}>
@@ -196,7 +200,7 @@ function ProductByCategoery({ selecter }) {
           </div>
           <div class="col-span-3">
             <Slider {...settings}>
-              {data
+              {fetchData
                 .filter(
                   (categories) => categories.category === "women's clothing"
                 )
@@ -267,7 +271,7 @@ function ProductByCategoery({ selecter }) {
           </div>
           <div class="col-span-3">
             <Slider {...settings}>
-              {data
+              {fetchData
                 .filter((categories) => categories.category === "electronics")
                 ?.map((item, index) => (
                   <div key={index}>

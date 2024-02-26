@@ -3,10 +3,14 @@ import React, { useContext } from "react";
 
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
-import { CartContext } from "../contextApi/Provider";
+import { useSelector } from "react-redux";
+// import { CartContext } from "../contextApi/Provider";
 
 export default function NavbarMenu({ loggedIn, handleLogout }) {
-  const { count } = useContext(CartContext);
+  // const { count } = useContext(CartContext);
+  const data = useSelector((state) => {
+    return state?.persistedReducer?.addToCart?.count;
+  });
 
   return (
     <div className=" fixed top-0 w-full bg-gray-800 text-white p-2 mb-20 z-40">
@@ -90,7 +94,7 @@ export default function NavbarMenu({ loggedIn, handleLogout }) {
                   </div>
 
                   <div className="">
-                    <span className="text-red-400">{count}</span>
+                    <span className="text-red-400">{data}</span>
                   </div>
                 </div>
               </Link>

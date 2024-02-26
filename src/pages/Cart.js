@@ -1,19 +1,24 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
-import { CartContext } from "../components/contextApi/Provider";
+// import { CartContext } from "../components/contextApi/Provider";
 import Footer from "./footer/Footer";
+import { decrementCart } from "../store/slices/Cartslice";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Cart() {
   const [data, setData] = useState([]);
   const [sum, setSum] = useState(0);
   const [quantity, setQuantity] = useState();
   const navigate = useNavigate();
-  const { count, setCount } = useContext(CartContext);
-
+  // const { count, setCount } = useContext(CartContext);
+  const dispatch = useDispatch();
+  const selector = useSelector((state) => {
+    return state?.persistedReducer?.addToCart?.count;
+  });
   useEffect(() => {
     fetchData();
-  }, [quantity, count]);
+  }, [quantity]);
 
   const fetchData = () => {
     let getData = JSON.parse(localStorage.getItem("newData"));
@@ -27,7 +32,11 @@ export default function Cart() {
   const deleteItem = (id) => {
     const upDateData = data.filter((itemId) => itemId.id !== id);
     setData(upDateData);
-    setCount((preData) => preData - 1);
+    // setCount((preData) => preData - 1);
+    if (selector > 0) {
+      dispatch(decrementCart());
+    }
+
     console.log("updated data", upDateData);
     localStorage.setItem("newData", JSON.stringify(upDateData));
   };
@@ -59,7 +68,7 @@ export default function Cart() {
     localStorage.removeItem("newData");
     setSum(0);
     setData([]);
-    setCount();
+    // setCount();
     navigate("/");
   };
 

@@ -9,6 +9,10 @@ import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import LoginPage from "./pages/LoginPage";
 import { useEffect, useState } from "react";
+import { jwtDecode } from "jwt-decode";
+import Footer from "./pages/footer/Footer";
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import { googleLogout } from "@react-oauth/google";
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   useEffect(() => {
@@ -21,8 +25,36 @@ function App() {
     localStorage.removeItem("isLoggedIn");
     setLoggedIn(false);
   };
+
+  // const clientId =
+  //   "430536531455-kj43ok2au2nq5h3pve45c8ntq4ata3dq.apps.googleusercontent.com";
+  // const handleLogoutSuccess = () => {
+  //   console.log("Logout successful");
+  //   // Additional logout handling if needed
+  // };
   return (
     <>
+      {/* <h1>hello</h1>
+      <div className="flex justify-center items-center mt-8">
+        <GoogleOAuthProvider clientId={clientId}>
+          <GoogleLogin
+            onSuccess={(credentialResponse) => {
+              const decoded = jwtDecode(credentialResponse.credential);
+              let email = localStorage.setItem(
+                "email",
+                JSON.stringify(decoded.email_verified)
+              );
+              console.log(email);
+            }}
+            onError={() => {
+              console.log("Login Failed");
+            }}
+            shape="pill"
+            theme="filled_blue"
+          />
+        </GoogleOAuthProvider>
+      </div> */}
+
       <NavbarMenu loggedIn={loggedIn} handleLogout={handleLogout}></NavbarMenu>
       <Routes>
         <Route exect path="/" element={<Home />}></Route>

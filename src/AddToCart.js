@@ -6,22 +6,31 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { CartContext } from "./components/contextApi/Provider";
+// import { CartContext } from "./components/contextApi/Provider";
 import Footer from "./pages/footer/Footer";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { incrementCart } from "./store/slices/Cartslice";
 
 function AddToCart() {
-  const { count, setCount } = useContext(CartContext); // ContextApi
+  // const { count, setCount } = useContext(CartContext); // ContextApi
   const [incDEc, setIncDec] = useState(1);
   const [data, setData] = useState([]);
   const param = useParams();
   const navigate = useNavigate();
+
+  // const reduxData = useSelector((state) => {
+  //   return state.addToCart.count;
+  // });
+  const dispatch = useDispatch();
+
   useEffect(() => {
     async function fetchData() {
       if (param.id) {
         let dataList = await productById(param.id);
         console.log("add cart", dataList);
         dataList.newIncDEc = incDEc; // adding new object in exicting object
-        dataList.counts = count;
+        // dataList.counts = reduxData;
         console.log("new data", dataList);
         setData(dataList);
       }
@@ -47,8 +56,8 @@ function AddToCart() {
     } else {
       preData = [...preData, data];
       localStorage.setItem("newData", JSON.stringify(preData));
-      setCount((pre) => pre + 1);
-
+      // setCount((pre) => pre + 1);
+      dispatch(incrementCart());
       navigate(`/cart`);
     }
   };

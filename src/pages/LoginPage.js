@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
+import { addUser } from "../store/slices/UserSlices";
+import { useDispatch } from "react-redux";
 
 export default function LoginPage({ setLoggedIn }) {
   const [formData, setFormData] = useState({
+    id: uuidv4(),
     email: "",
     password: "",
   });
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -16,10 +21,13 @@ export default function LoginPage({ setLoggedIn }) {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(addUser(formData));
     setLoggedIn(true);
     localStorage.setItem("isLoggedIn", "true");
     navigate("/");
+    console.log("id", formData.id);
   };
+
   return (
     <>
       <div className="mt-28  flex justify-center items-center flex-col bg-blue-400 w-96 p-2 rounded-md m-auto">

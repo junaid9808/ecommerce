@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavbarMenu from "../components/navbar/NavbarMenu";
-import { GetJewelery } from "../apiHits/products/productByCategories/GetJewelery";
+// import { GetJewelery } from "../apiHits/products/productByCategories/GetJewelery";
+import { FatchData } from "../store/slices/ProductSlice";
 import Footer from "./footer/Footer";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 export default function Products() {
   const [data, setData] = useState([]);
@@ -10,6 +13,10 @@ export default function Products() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const navigate = useNavigate();
   const image = ["me.png", "clothes.jpg", "me.png", "tv.png"];
+  const dispatch = useDispatch();
+  const apiDataa = useSelector((state) => {
+    return state?.persistedReducer?.products?.data;
+  });
 
   const settings = {
     infinite: true,
@@ -19,18 +26,18 @@ export default function Products() {
     autoplay: true,
     autoplaySpeed: 5000,
   };
-
+  console.log("api data", apiDataa);
   useEffect(() => {
     async function fetchData() {
-      let dataList = await GetJewelery();
-      let data = dataList.map((item) => item.category);
+      dispatch(FatchData());
+      let data = apiDataa?.map((item) => item.category);
       const uniqueData = [...new Set(data)];
-      console.log("dataaaaa", dataList);
+      // console.log("dataaaaa", dataList);
       setCategories(uniqueData);
-      setData(dataList);
+      setData(apiDataa);
     }
     fetchData();
-  }, []);
+  }, [dispatch]);
 
   const navigateToPage = (id) => {
     navigate(`/addtocart/${id}`);
